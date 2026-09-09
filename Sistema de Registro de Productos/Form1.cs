@@ -13,28 +13,29 @@ using Sistema_de_Registro_de_Productos.Datos;
 
 namespace Sistema_de_Registro_de_Productos
 {
+    /// <summary>
+    /// ARD 09092026
+    /// </summary>
     public partial class Form1 : Form
     {
         private ProductoNegocio negocio;
         private ProductoDatos datos;
+        // Constructor de la clase Form1 que inicializa los componentes y eventos del formulario
         public Form1()
         {
             InitializeComponent();
             negocio = new ProductoNegocio();
             datos = new ProductoDatos();
-            // Vincular eventos
             btnRegistrar.Click += BtnRegistrar_Click;
             btnLimpiar.Click += BtnLimpiar_Click;
             btnSalir.Click += BtnSalir_Click;
-            // Inicializar vista
             MostrarProductos();
         }
-
+        //El evento realiza la validación de los campos del formulario y, si son válidos, crea un objeto Producto y lo guarda en la base de datos. Luego, actualiza la lista de productos mostrada en el DataGridView y limpia los controles del formulario.
         private void BtnRegistrar_Click(object sender, EventArgs e)
         {
             errorProvider1.Clear();
 
-            // Validaciones de parseo
             decimal precio;
             int existencia;
             bool ok = true;
@@ -94,17 +95,17 @@ namespace Sistema_de_Registro_de_Productos
             MostrarProductos();
             LimpiarControles();
         }
-
+        //Evento que limpia los controles del formulario y borra los errores del ErrorProvider.
         private void BtnLimpiar_Click(object sender, EventArgs e)
         {
             LimpiarControles();
         }
-
+        //Evento que cierra el formulario.
         private void BtnSalir_Click(object sender, EventArgs e)
         {
             Close();
         }
-
+        //Clase que limpia los controles del formulario y borra los errores del ErrorProvider.
         private void LimpiarControles()
         {
             txtCodigo.Text = string.Empty;
@@ -114,12 +115,14 @@ namespace Sistema_de_Registro_de_Productos
             errorProvider1.Clear();
             txtCodigo.Focus();
         }
-
+        //Clase que muestra los productos en el DataGridView.
         private void MostrarProductos()
         {
             dgvProductos.AutoGenerateColumns = true;
             dgvProductos.DataSource = null;
             dgvProductos.DataSource = datos.ObtenerTodos();
         }
+
+    
     }
 }
